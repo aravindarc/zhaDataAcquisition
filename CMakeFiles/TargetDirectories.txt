@@ -1,0 +1,3 @@
+/home/aravinda/PROJECTS/TAMIL_OCR/DataAcquisition/CMakeFiles/edit_cache.dir
+/home/aravinda/PROJECTS/TAMIL_OCR/DataAcquisition/CMakeFiles/rebuild_cache.dir
+/home/aravinda/PROJECTS/TAMIL_OCR/DataAcquisition/CMakeFiles/DataAcquisition.dir

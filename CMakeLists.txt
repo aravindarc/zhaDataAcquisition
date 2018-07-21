@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project(DataAcquisition)
+find_package(OpenCV REQUIRED)
+add_executable(DataAcquisition DataAcquisition.cpp)
+target_link_libraries(DataAcquisition ${OpenCV_LIBS})

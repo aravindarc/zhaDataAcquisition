@@ -9,7 +9,7 @@ Instructions:
 Note: Make sure CMAKE and OPENCV is installed
 - Run "make" from project root folder to generate binary executable file.
 - After that you can choose to extract individual images
-by running "./DataAcquisition <raw image source file> <destination folder path>"
+by running "./DataAcquisition [raw image source file] [destination folder path]"
 - If you want to extract all raw images simply run 
 "./extract.sh" from the project root folder
 

@@ -12,20 +12,23 @@ bool sortTeacherY(Rect, Rect);
 int main(int argc, char **argv) {
 
     if(argc == 1) {
-        cerr << "File name not passed" << endl;
+        cerr << "File name and storage path not passed" << endl;
         return -1;
     }
 
-    if(argc > 2) {
+    if(argc > 3) {
         cerr << "Only one argument is allowed" << endl;
         return -1;
     }
 
     string filename(argv[1]);                          //input image
+    string storagePath(argv[2]);
     Mat src = imread(filename);                        //pipeline it into opencv Mat object
 
-    if(!src.data)
+    if(!src.data) {
         cerr << "Problem loading " << filename << endl;   //if image is corrupt or null throw error
+        return -1;
+    }
 
     Mat rsz = src;
 
@@ -89,12 +92,12 @@ int main(int argc, char **argv) {
     }
 
     if(selectedRects.size() != 247) {                                   //check if any discrepancy crept in
-        cout << "Contours are more or less than 247" << endl;
+        cout << selectedRects.size() << endl;
         return -1;
     }
 
     sortRects(selectedRects);                                           //the contours will be disordered sort it using custom function
-    cout << "Number of images saved: " << selectedRects.size() << endl;
+    cout << selectedRects.size() << endl;
 
     Mat tempBinary;
     gray = bw-mask;         //try and remove the grid from the original binary image
@@ -104,7 +107,7 @@ int main(int argc, char **argv) {
     {
         ostringstream tempostr;
         tempostr << i;
-        string temp = "ResultantStorage/" + tempostr.str() + ".jpg";
+        string temp = storagePath + tempostr.str() + ".jpg";
 
         adaptiveThreshold(gray(selectedRects[i]).clone(), tempBinary, 255, CV_ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 15, -2);
                                                                     //crop the image with the rect data and convert it to binary

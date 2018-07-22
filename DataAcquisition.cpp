@@ -9,10 +9,20 @@ void sortRects(vector<Rect> &);
 bool sortTeacherX(Rect, Rect);
 bool sortTeacherY(Rect, Rect);
 
-int main() {
+int main(int argc, char **argv) {
 
-    string filename = "RawImages/test5.jpg";     //input image
-    Mat src = imread(filename);                  //pipeline it into opencv Mat object
+    if(argc == 1) {
+        cerr << "File name not passed" << endl;
+        return -1;
+    }
+
+    if(argc > 2) {
+        cerr << "Only one argument is allowed" << endl;
+        return -1;
+    }
+
+    string filename(argv[1]);                          //input image
+    Mat src = imread(filename);                        //pipeline it into opencv Mat object
 
     if(!src.data)
         cerr << "Problem loading " << filename << endl;   //if image is corrupt or null throw error
@@ -116,7 +126,8 @@ bool sortTeacherX(Rect i, Rect j) {
 
 void sortRects(vector<Rect> &boundRect) {           //interesting sorting situation, since two points are the data
                                                     //and sorting order should be left to right and top to bottom
-    int i;                                          //study if interested
+                                                    //study if interested
+    int i;
 
     sort(boundRect.begin(), boundRect.end(), sortTeacherY);
 

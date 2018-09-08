@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
     //grayscale to binary conversion
     adaptiveThreshold(~gray, bw, 255, CV_ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 15, -2);        
 
-    imwrite("bin.jpg", bw);
+    //imwrite("bin.jpg", bw);
     Mat horizontal = bw.clone();
     Mat vertical = bw.clone();
 
@@ -82,7 +82,8 @@ int main(int argc, char **argv) {
     //imshow("Vertical", vertical);
 
     //Add the vertical and horizontal lines to get the grid mask
-    Mat mask = horizontal + vertical;       
+    Mat mask = horizontal + vertical;   
+
     //imshow("Mask", mask);
 
     vector<Vec4i> hierarchy;
@@ -97,12 +98,12 @@ int main(int argc, char **argv) {
      */
     cv::findContours(mask, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, Point(0, 0));        
 
-    vector<vector<Point> > contours_poly( contours.size() );
+    vector<vector<Point>> contours_poly( contours.size() );
+
     /*
      *this'll hold the rectangle data of the contour(x, y, width, height)
      *x and y are origins of the contour, top-leftmost pixel coordinates
      */
-
     vector<Rect> boundRect( contours.size() );          
 
     //this'll hold the character rects to be filtered from other rects
@@ -110,6 +111,7 @@ int main(int argc, char **argv) {
 
     for (size_t i = 0; i < contours.size(); i++)
     {
+
         //fit polygonal shape over the contours
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );    
 
@@ -164,6 +166,7 @@ int main(int argc, char **argv) {
     {
 
         ostringstream tempostr;
+
         //the last column alone will be saved using labels "sx" since they contain special characters
         if((i+1)%14 == 0)   
             tempostr << 's' << c++;
@@ -176,10 +179,12 @@ int main(int argc, char **argv) {
         imgWrite = Mat::zeros(tempBinary.size(), tempBinary.type());
         for(int y=0; y<tempBinary.rows; y++)
             for(int x=0; x<tempBinary.cols; x++) {
+
                 if(tempBinary.at<uchar>(y, x) > NOISE_THRESH)
                     imgWrite.at<uchar>(y, x) = saturate_cast<uchar>(ALPHA * tempBinary.at<uchar>(y, x));
                 else
                     imgWrite.at<uchar>(y, x) = 0;
+
             }
         //uncomment to use
         //resize(tempBinary, imgWrite, imgWriteSize);

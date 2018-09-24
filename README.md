@@ -1,4 +1,6 @@
 # zhaDataAcquisition
+This repository has been discontinued, go to https://github.com/aravindarc/tamil_hocr_training and https://github.com/aravindarc/tamil_hocr for updated and clean versions.
+
 Data acquisition method for TAMIZH OCR
 
 We have used opencv-C++ to acquire Data from a scan of tabled sheet and splitting the characters into individual images.
